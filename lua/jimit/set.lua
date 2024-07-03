@@ -30,4 +30,3 @@ vim.opt.scrolloff = 5
 -- column
 vim.opt.signcolumn = "yes"
 vim.opt.colorcolumn = "80"
-
