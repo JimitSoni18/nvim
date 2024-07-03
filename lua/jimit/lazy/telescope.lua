@@ -11,7 +11,7 @@ return {
 		vim.keymap.set('n', "<leader>f", function()
 			builtin.git_files({show_untracked = true})
 		end)
-		vim.keymap.set('n', '<leader>F', function()
+		vim.keymap.set('n', '<leader>/', function()
 			builtin.grep_string({ search = vim.fn.input("Grep:") })
 		end)
 		vim.keymap.set('n', '<leader>vh', builtin.help_tags)
