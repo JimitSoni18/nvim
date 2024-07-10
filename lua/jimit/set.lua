@@ -19,6 +19,7 @@ vim.opt.undofile = true
 
 -- search and highlight
 vim.opt.hlsearch = false
+vim.opt.updatetime = 600
 vim.opt.incsearch = true
 
 -- colors
