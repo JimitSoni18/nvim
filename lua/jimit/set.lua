@@ -19,6 +19,7 @@ vim.opt.undofile = true
 
 -- search and highlight
 vim.opt.hlsearch = false
+vim.opt.updatetime = 600
 vim.opt.incsearch = true
 
 -- colors
@@ -30,4 +31,3 @@ vim.opt.scrolloff = 5
 -- column
 vim.opt.signcolumn = "yes"
 vim.opt.colorcolumn = "80"
-
