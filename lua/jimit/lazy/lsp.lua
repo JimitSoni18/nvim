@@ -11,6 +11,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
 		vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, opts)
 		vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts)
+		vim.keymap.set("n", "<leader>i", function()
+			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+		end, opts)
 		-- what is this
 		-- vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 
@@ -43,17 +46,20 @@ return {
 	config = function()
 		local lsp_config = require("lspconfig")
 		lsp_config.rust_analyzer.setup({})
+		lsp_config.clangd.setup({})
 		lsp_config.lua_ls.setup({})
 		lsp_config.gopls.setup({})
 		lsp_config.tsserver.setup({})
+		lsp_config.astro.setup({})
+		lsp_config.tailwindcss.setup({})
 		local cmp = require('cmp')
 		local cmp_lsp = require("cmp_nvim_lsp")
-		local capabilities = vim.tbl_deep_extend(
-			"force",
-			{},
-			vim.lsp.protocol.make_client_capabilities(),
-			cmp_lsp.default_capabilities()
-		)
+		-- local capabilities = vim.tbl_deep_extend(
+		-- 	"force",
+		-- 	{},
+		-- 	vim.lsp.protocol.make_client_capabilities(),
+		-- 	cmp_lsp.default_capabilities()
+		-- )
 
 		local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
@@ -74,7 +80,7 @@ return {
 		vim.diagnostic.config({
 			-- update_in_insert = true,
 			float = {
-				focusable = false,
+				focusable = true,
 				style = "minimal",
 				border = "rounded",
 				source = "always",
