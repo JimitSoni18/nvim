@@ -31,3 +31,13 @@ vim.opt.scrolloff = 5
 -- column
 vim.opt.signcolumn = "yes"
 vim.opt.colorcolumn = "80"
+
+local theme_change = vim.api.nvim_create_augroup('theme_change', {})
+
+vim.api.nvim_create_autocmd('ColorScheme', {
+	group = theme_change,
+	callback = function()
+		vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+		vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+	end
+})
