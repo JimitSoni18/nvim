@@ -41,3 +41,19 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 		vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 	end
 })
+
+local vim_enter = vim.api.nvim_create_augroup('vim_enter', {})
+
+vim.api.nvim_create_autocmd('VimEnter', {
+	group = vim_enter,
+	callback = function()
+		local cwd = vim.fn.getcwd()
+		local init = cwd .. "/.nvim/init.lua"
+		local stat = vim.loop.fs_stat(init)
+		if stat and stat.type == 'file' then
+		vim.cmd("so " .. init)
+		end
+	end
+})
+
+
