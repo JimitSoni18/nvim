@@ -3,11 +3,11 @@ vim.opt.nu = true
 vim.opt.rnu = true
 
 -- tabs
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
 vim.opt.autoindent = true
-vim.opt.expandtab = false
+vim.opt.expandtab = true
 vim.opt.smartindent = true
 
 -- undo
@@ -18,6 +18,8 @@ vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 
 -- search and highlight
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 vim.opt.hlsearch = false
 vim.opt.updatetime = 600
 vim.opt.incsearch = true
@@ -51,9 +53,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
 		local init = cwd .. "/.nvim/init.lua"
 		local stat = vim.loop.fs_stat(init)
 		if stat and stat.type == 'file' then
-		vim.cmd("so " .. init)
+			vim.cmd("so " .. init)
 		end
 	end
 })
-
-
