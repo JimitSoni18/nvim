@@ -45,11 +45,20 @@ return {
 	},
 	config = function()
 		local lsp_config = require("lspconfig")
-		lsp_config.rust_analyzer.setup({})
+		lsp_config.rust_analyzer.setup({
+			settings = {
+				["rust-analyzer"] = {
+					checkOnSave = {
+						command = "clippy"
+					}
+				}
+			}
+		})
 		lsp_config.clangd.setup({})
 		lsp_config.lua_ls.setup({})
 		lsp_config.gopls.setup({})
 		lsp_config.tsserver.setup({})
+		lsp_config.eslint.setup({})
 		lsp_config.astro.setup({})
 		lsp_config.tailwindcss.setup({})
 		local cmp = require('cmp')
