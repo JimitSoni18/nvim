@@ -3,11 +3,11 @@ vim.opt.nu = true
 vim.opt.rnu = true
 
 -- tabs
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
 vim.opt.autoindent = true
-vim.opt.expandtab = true
+vim.opt.expandtab = false
 vim.opt.smartindent = true
 
 -- undo
@@ -36,13 +36,16 @@ vim.opt.colorcolumn = "80"
 
 local theme_change = vim.api.nvim_create_augroup('theme_change', {})
 
-vim.api.nvim_create_autocmd('ColorScheme', {
-	group = theme_change,
-	callback = function()
-		vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-		vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-	end
-})
+RemoveBg = function()
+	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+end
+
+
+-- vim.api.nvim_create_autocmd('ColorScheme', {
+-- 	group = theme_change,
+-- 	callback = remove_bg
+-- })
 
 local vim_enter = vim.api.nvim_create_augroup('vim_enter', {})
 

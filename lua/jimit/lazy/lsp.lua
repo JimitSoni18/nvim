@@ -17,14 +17,34 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		-- what is this
 		-- vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 
+		local function safe_document_highlight()
+			local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+			local has_capable_client = false
+
+			for _, client in ipairs(clients) do
+				if client.server_capabilities.documentHighlightProvider then
+					has_capable_client = true
+					break
+				end
+			end
+
+			if has_capable_client then
+				vim.lsp.buf.document_highlight()
+				-- local status, error = pcall(vim.lsp.buf.document_highlight)
+				-- if not status then
+				-- 	print("Failed to highlight: " .. error)
+				-- end
+			end
+		end
+
 		vim.api.nvim_create_autocmd('CursorHold', {
 			group = jimit,
-			callback = vim.lsp.buf.document_highlight
+			callback = safe_document_highlight
 		})
 
 		vim.api.nvim_create_autocmd('CursorHoldI', {
 			group = jimit,
-			callback = vim.lsp.buf.document_highlight
+			callback = safe_document_highlight
 		})
 
 		vim.api.nvim_create_autocmd('CursorMoved', {
@@ -54,6 +74,7 @@ return {
 				}
 			}
 		})
+		lsp_config.slint_lsp.setup({})
 		lsp_config.clangd.setup({})
 		lsp_config.lua_ls.setup({})
 		lsp_config.gopls.setup({})
@@ -62,7 +83,7 @@ return {
 		lsp_config.astro.setup({})
 		lsp_config.tailwindcss.setup({})
 		local cmp = require('cmp')
-		local cmp_lsp = require("cmp_nvim_lsp")
+		-- local cmp_lsp = require("cmp_nvim_lsp")
 		-- local capabilities = vim.tbl_deep_extend(
 		-- 	"force",
 		-- 	{},

@@ -25,6 +25,7 @@ return {
 				"astro",
 				"python",
 				"yuck",
+				"slint",
 			},
 
 			-- Install parsers synchronously (only applied to `ensure_installed`)
