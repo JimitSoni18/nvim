@@ -82,6 +82,12 @@ return {
 		lsp_config.eslint.setup({})
 		lsp_config.astro.setup({})
 		lsp_config.tailwindcss.setup({})
+		lsp_config.sqls.setup({
+			cmd = { "sqls", "-config", vim.fn.getcwd().."/.sqls/config.yml" },
+		})
+		lsp_config.pyright.setup {}
+		lsp_config.emmet_language_server.setup{}
+		-- lsp_config.pylsp.setup{}
 		local cmp = require('cmp')
 		-- local cmp_lsp = require("cmp_nvim_lsp")
 		-- local capabilities = vim.tbl_deep_extend(

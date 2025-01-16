@@ -26,6 +26,7 @@ return {
 				"python",
 				"yuck",
 				"slint",
+				"sql",
 			},
 
 			-- Install parsers synchronously (only applied to `ensure_installed`)
