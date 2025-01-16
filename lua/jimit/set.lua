@@ -49,14 +49,35 @@ end
 
 local vim_enter = vim.api.nvim_create_augroup('vim_enter', {})
 
+---@param file file*
+local process_env = function(file)
+	for line in file:lines() do
+		local first_part, second_part = line:match("([^=]+)=(.*)");
+		if first_part ~= nil and second_part ~= nil then
+			vim.env[first_part] = second_part;
+		end
+	end
+end
+
 vim.api.nvim_create_autocmd('VimEnter', {
 	group = vim_enter,
 	callback = function()
 		local cwd = vim.fn.getcwd()
 		local init = cwd .. "/.nvim/init.lua"
-		local stat = vim.loop.fs_stat(init)
-		if stat and stat.type == 'file' then
+		local env = cwd .. "/.env.nvim"
+		local init_stat = vim.loop.fs_stat(init)
+		local env_stat = vim.loop.fs_stat(env)
+		if init_stat and init_stat.type == 'file' then
 			vim.cmd("so " .. init)
+		end
+		if env_stat and env_stat.type == 'file' then
+			local file = io.open(env, 'r');
+			if file then
+				process_env(file)
+				file:close();
+			else
+				print("failed to read env")
+			end
 		end
 	end
 })
